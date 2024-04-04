@@ -9,6 +9,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'users.dart';
 
 class sideNavigation extends StatelessWidget {
   const sideNavigation({super.key});
@@ -19,8 +20,8 @@ class sideNavigation extends StatelessWidget {
       backgroundColor: primary,
       child: ListView(children: [
         UserAccountsDrawerHeader(
-          accountName: Text("$finalName"),
-          accountEmail: Text("$finalEmail"),
+          accountName: Text(finalName),
+          accountEmail: Text(finalEmail),
           currentAccountPicture: CircleAvatar(
             backgroundImage: NetworkImage(
                 "https://images.unsplash.com/photo-1531256456869-ce942a665e80?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MTI4fHxwcm9maWxlfGVufDB8fDB8&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60"),
@@ -144,8 +145,9 @@ class sideNavigation extends StatelessWidget {
                 fontSize: 20,
                 color: mainFontColor),
           ),
-          onTap: () async{
-            final SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+          onTap: () async {
+            final SharedPreferences sharedPreferences =
+                await SharedPreferences.getInstance();
             // sharedPreferences.remove('email');
             // sharedPreferences.remove('enrollment');
             // sharedPreferences.remove('name');

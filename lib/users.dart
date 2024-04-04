@@ -1,14 +1,11 @@
-class users{
-
-static String enrollment ='';
-static String name = '';
-static String email ='';
-static String div ='';
-static String duration ='';
-static String department ='';
-static String dept_abbr ='';
-static String batch_start_year ='';
-static String course_name ='';
-static String course_abbr ='';
-static String qr_code = "";
-}
+String finalEmail = '';
+String finalEnrollment = '';
+String finalName = '';
+String finaldiv = '';
+String finalqr_code = '';
+String finalduration = '';
+String finaldepartment = '';
+String finaldept_abbr = '';
+String finalcourse_abbr = '';
+String finalcourse_name = '';
+String finalbatch_start_year = '';

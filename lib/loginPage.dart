@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:GLSeUniVerse/SplashScreen.dart';
 import 'package:GLSeUniVerse/colors.dart';
 import 'package:GLSeUniVerse/forgotPassword.dart';
@@ -14,11 +16,11 @@ import 'loginPage.dart';
 import 'package:http/http.dart' as http;
 import 'package:GLSeUniVerse/users.dart';
 
-void main() {
-  runApp(MaterialApp(
-    home: loginPage(),
-  ));
-}
+// void main() {
+//   runApp(MaterialApp(
+//     home: loginPage(),
+//   ));
+// }
 
 // ignore_for_file: camel_case_types, non_constant_identifier_names
 
@@ -245,8 +247,6 @@ class _loginPageState extends State<loginPage> {
   var _enrollment = '';
   var _password = '';
 
-  String str = users.enrollment;
-
   bool obscure_Text = true; //for hidding the password
 
   void _showpass() {
@@ -279,34 +279,58 @@ class _loginPageState extends State<loginPage> {
 
       //print(await response.stream.bytesToString());
       final data = jsonDecode(await response.stream.bytesToString());
-      
 
-      // Storing Data in Class
-      users.enrollment = data['data']['stu_data']['enrolment'];
-      users.name = data['data']['stu_data']['name'];
-      users.email = data['data']['stu_data']['email'];
-      users.div = data['data']['stu_data']['div'];
-      users.batch_start_year = data['data']['stu_data']['batch_start_year'];
-      users.duration = data['data']['stu_data']['batch_duration'];
-      users.department = data['data']['stu_data']['dept_name'];
-      users.dept_abbr = data['data']['stu_data']['dept_abbr'];
-      users.course_abbr = data['data']['stu_data']['program_abbr'];
-      users.course_name = data['data']['stu_data']['program_name'];
-      users.qr_code = data['data']['stu_qr'];
+      // // Storing Data in Class
+      // users.enrollment = data['data']['stu_data']['enrolment'];
+      // users.name = data['data']['stu_data']['name'];
+      // users.email = data['data']['stu_data']['email'];
+      // users.div = data['data']['stu_data']['div'];
+      // users.batch_start_year = data['data']['stu_data']['batch_start_year'];
+      // users.duration = data['data']['stu_data']['batch_duration'];
+      // users.department = data['data']['stu_data']['dept_name'];
+      // users.dept_abbr = data['data']['stu_data']['dept_abbr'];
+      // users.course_abbr = data['data']['stu_data']['program_abbr'];
+      // users.course_name = data['data']['stu_data']['program_name'];
+      // users.qr_code = data['data']['stu_qr'];
       // Get.toNamed('/studentHomePage');
 
-      final SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-      sharedPreferences.setString('email', users.email);
-      sharedPreferences.setString('name', users.name);
-      sharedPreferences.setString('enrollment', users.enrollment);
-      sharedPreferences.setString('div', users.div);
-      sharedPreferences.setString('duration', users.duration);
-      sharedPreferences.setString('department', users.department);
-      sharedPreferences.setString('dept_abbr', users.dept_abbr);
-      sharedPreferences.setString('course_abbr', users.course_abbr);
-      sharedPreferences.setString('course_name', users.course_name);
-      sharedPreferences.setString('qr_code', users.qr_code);
-      sharedPreferences.setString('batch_start_year', users.batch_start_year);
+      final SharedPreferences sharedPreferences =
+          await SharedPreferences.getInstance();
+      await sharedPreferences.setString(
+          'email', data['data']['stu_data']['email']);
+      await sharedPreferences.setString(
+          'name', data['data']['stu_data']['name']);
+      await sharedPreferences.setString(
+          'enrollment', data['data']['stu_data']['enrolment']);
+      await sharedPreferences.setString('div', data['data']['stu_data']['div']);
+      await sharedPreferences.setString(
+          'duration', data['data']['stu_data']['batch_duration']);
+      await sharedPreferences.setString(
+          'department', data['data']['stu_data']['dept_name']);
+      await sharedPreferences.setString(
+          'dept_abbr', data['data']['stu_data']['dept_abbr']);
+      await sharedPreferences.setString(
+          'course_abbr', data['data']['stu_data']['program_abbr']);
+      await sharedPreferences.setString(
+          'course_name', data['data']['stu_data']['program_name']);
+      await sharedPreferences.setString('qr_code', data['data']['stu_qr']);
+      await sharedPreferences.setString(
+          'batch_start_year', data['data']['stu_data']['batch_start_year']);
+
+      // final SharedPreferences sharedPreferences =
+      //     await SharedPreferences.getInstance();
+      // await sharedPreferences.setString('email', users.email);
+      // await sharedPreferences.setString('name', users.name);
+      // await sharedPreferences.setString('enrollment', users.enrollment);
+      // await sharedPreferences.setString('div', users.div);
+      // await sharedPreferences.setString('duration', users.duration);
+      // await sharedPreferences.setString('department', users.department);
+      // await sharedPreferences.setString('dept_abbr', users.dept_abbr);
+      // await sharedPreferences.setString('course_abbr', users.course_abbr);
+      // await sharedPreferences.setString('course_name', users.course_name);
+      // await sharedPreferences.setString('qr_code', users.qr_code);
+      // await sharedPreferences.setString(
+      //     'batch_start_year', users.batch_start_year);
       Navigator.pushReplacement(
           context,
           MaterialPageRoute(
@@ -322,7 +346,6 @@ class _loginPageState extends State<loginPage> {
       print(response.reasonPhrase);
     }
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -497,7 +520,7 @@ class _loginPageState extends State<loginPage> {
               onTap: () async {
                 _enrollment = _email.text;
                 _password = password.text;
-                
+
                 main();
               },
               child: Container(
