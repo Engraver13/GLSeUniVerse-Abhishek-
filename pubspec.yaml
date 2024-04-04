@@ -42,6 +42,7 @@ dependencies:
   flutter_barcode_scanner: ^2.0.0
   camera: ^0.10.5+9
   qr_code_scanner: ^1.0.1
+  simple_barcode_scanner: ^0.1.0
   path_provider: ^2.1.2
   image_gallery_saver: ^2.0.3
   fluttertoast: ^8.2.4

@@ -5,6 +5,7 @@ import 'package:GLSeUniVerse/userDetails.dart';
 import 'package:GLSeUniVerse/visitorEntryPage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:simple_barcode_scanner/simple_barcode_scanner.dart';
 
 class securityPage extends StatefulWidget {
   const securityPage({super.key});
@@ -145,12 +146,24 @@ class _securityPageState extends State<securityPage> {
                       children: [
                         Expanded(
                           child: GestureDetector(
-                            onTap: () {
-                              Navigator.push(
+                            onTap: () async {
+                              // Navigator.push(
+                              //     context,
+                              //     MaterialPageRoute(
+                              //       builder: (context) => QRCodeScannerScreen(),
+                              //     ));
+                              var res = await Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (context) => QRCodeScannerScreen(),
+                                    builder: (context) =>
+                                        const SimpleBarcodeScannerPage(),
                                   ));
+                              setState(() {
+                                if (res is String) {
+                                  // result = res;
+                                  print(res);
+                                }
+                              });
                               print("1st Clicked");
                             },
                             child: Container(

@@ -66,7 +66,9 @@ class _QRCodeScannerScreenState extends State<QRCodeScannerScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: QRView(
+      body:
+
+      QRView(
           key: qrKey,
           onQRViewCreated: (controller) {
             setState(() {
@@ -77,6 +79,7 @@ class _QRCodeScannerScreenState extends State<QRCodeScannerScreen> {
               print("Scan QR Code : $scanData");
             });
           }),
+    
     );
   }
 
