@@ -1,5 +1,6 @@
 // ignore_for_file: file_names
 
+import 'package:GLSeUniVerse/SplashScreen.dart';
 import 'package:GLSeUniVerse/colors.dart';
 import 'package:GLSeUniVerse/users.dart';
 import 'package:flutter/cupertino.dart';
@@ -56,10 +57,10 @@ class _qrPageState extends State<qrPage> {
                 CircleAvatar(
                   radius: 50,
                   //backgroundImage: AssetImage('images/profile.png'),
-                  // backgroundImage: NetworkImage(
-                  //     "https://images.unsplash.com/photo-1531256456869-ce942a665e80?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MTI4fHxwcm9maWxlfGVufDB8fDB8&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60"),
+                  backgroundImage: NetworkImage(
+                      "https://images.unsplash.com/photo-1531256456869-ce942a665e80?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MTI4fHxwcm9maWxlfGVufDB8fDB8&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60"),
                 
-                child: ImageFromBase64String(base64String: users.qr_code),
+                //child: ImageFromBase64String(base64String: users.qr_code),
                 
                 ),
                 //ImageFromBase64String(base64String: users.qr_code),
@@ -68,15 +69,22 @@ class _qrPageState extends State<qrPage> {
                 ),
                 // student Name
                 Text(
-                  "Abhi Engraver",
+                  //users.name,
+                  '$finalName',
                   style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
                 ),
                 SizedBox(
                   height: 10,
                 ),
                 // Qr Code
-                Image(
-                  image: AssetImage('images/qrCode.webp'),
+                // Image(
+                //   child: ImageFromBase64String(base64String: users.qr_code),
+                //   height: 250,
+                // ),
+
+                Container(
+                  //child:ImageFromBase64String(base64String: users.qr_code),
+                  child:ImageFromBase64String(base64String: '$finalqr_code'),
                   height: 250,
                 ),
                 SizedBox(
@@ -84,7 +92,8 @@ class _qrPageState extends State<qrPage> {
                 ),
                 // Enrollment no of student
                 Text(
-                  users.enrollment,
+                  //users.enrollment,
+                  '$finalEnrollment',
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                 ),
                 SizedBox(
@@ -92,7 +101,7 @@ class _qrPageState extends State<qrPage> {
                 ),
                 // student Email
                 Text(
-                  users.email,
+                  '$finalEmail',
                   style: TextStyle(fontSize: 15, color: Colors.grey),
                 ),
                 SizedBox(
@@ -116,7 +125,8 @@ class _qrPageState extends State<qrPage> {
                       child:
                           //Department
                           Text(
-                            users.department +' - '+ users.dept_abbr,
+                            //users.department +' - '+ users.dept_abbr,
+                            '$finaldepartment' +' - '+ '$finaldept_abbr',
                               style: TextStyle(color: white))),
                 ),
                 SizedBox(
@@ -136,7 +146,9 @@ class _qrPageState extends State<qrPage> {
                           // changes position of shadow
                         ),
                       ]),
-                  child: Text(users.course_name +'\nBatch: '+ users.batch_start_year ,
+                  child: Text(
+                    //users.course_name +'\nBatch: '+ users.batch_start_year ,
+                    '$finalcourse_name' +'\nBatch: '+ '$finalbatch_start_year',
                                       style: TextStyle(color: white),
                                     ),
                 ),

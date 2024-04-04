@@ -1,3 +1,4 @@
+import 'package:GLSeUniVerse/SplashScreen.dart';
 import 'package:GLSeUniVerse/barcodePage.dart';
 import 'package:GLSeUniVerse/colors.dart';
 import 'package:GLSeUniVerse/editProfile.dart';
@@ -7,6 +8,7 @@ import 'package:GLSeUniVerse/qrPage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class sideNavigation extends StatelessWidget {
   const sideNavigation({super.key});
@@ -17,8 +19,8 @@ class sideNavigation extends StatelessWidget {
       backgroundColor: primary,
       child: ListView(children: [
         UserAccountsDrawerHeader(
-          accountName: Text("Abhi Engraver"),
-          accountEmail: Text("engraver18@gmail.com"),
+          accountName: Text("$finalName"),
+          accountEmail: Text("$finalEmail"),
           currentAccountPicture: CircleAvatar(
             backgroundImage: NetworkImage(
                 "https://images.unsplash.com/photo-1531256456869-ce942a665e80?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MTI4fHxwcm9maWxlfGVufDB8fDB8&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60"),
@@ -142,8 +144,24 @@ class sideNavigation extends StatelessWidget {
                 fontSize: 20,
                 color: mainFontColor),
           ),
-          onTap: () {
-            Navigator.push(context, MaterialPageRoute(
+          onTap: () async{
+            final SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+            // sharedPreferences.remove('email');
+            // sharedPreferences.remove('enrollment');
+            // sharedPreferences.remove('name');
+            // sharedPreferences.remove('div');
+            // sharedPreferences.remove('qr_code');
+            // sharedPreferences.remove('duration');
+            // sharedPreferences.remove('department');
+            // sharedPreferences.remove('dept_abbr');
+            // sharedPreferences.remove('course_abbr');
+            // sharedPreferences.remove('course_name');
+            // sharedPreferences.remove('batch_start_year');
+
+            await sharedPreferences.clear();
+            print('okay!');
+
+            Navigator.pushReplacement(context, MaterialPageRoute(
               builder: (context) {
                 return loginPage();
               },

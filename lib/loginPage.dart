@@ -1,9 +1,12 @@
+import 'package:GLSeUniVerse/SplashScreen.dart';
 import 'package:GLSeUniVerse/colors.dart';
 import 'package:GLSeUniVerse/forgotPassword.dart';
 import 'package:GLSeUniVerse/home.dart';
+import 'package:GLSeUniVerse/loadScreen.dart';
 import 'package:GLSeUniVerse/loginPage.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
 // import 'package:get/get.dart';
 import 'homePage.dart';
@@ -280,6 +283,7 @@ class _loginPageState extends State<loginPage> {
 
       // Storing Data in Class
       users.enrollment = data['data']['stu_data']['enrolment'];
+      users.name = data['data']['stu_data']['name'];
       users.email = data['data']['stu_data']['email'];
       users.div = data['data']['stu_data']['div'];
       users.batch_start_year = data['data']['stu_data']['batch_start_year'];
@@ -291,10 +295,22 @@ class _loginPageState extends State<loginPage> {
       users.qr_code = data['data']['stu_qr'];
       // Get.toNamed('/studentHomePage');
 
+      final SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+      sharedPreferences.setString('email', users.email);
+      sharedPreferences.setString('name', users.name);
+      sharedPreferences.setString('enrollment', users.enrollment);
+      sharedPreferences.setString('div', users.div);
+      sharedPreferences.setString('duration', users.duration);
+      sharedPreferences.setString('department', users.department);
+      sharedPreferences.setString('dept_abbr', users.dept_abbr);
+      sharedPreferences.setString('course_abbr', users.course_abbr);
+      sharedPreferences.setString('course_name', users.course_name);
+      sharedPreferences.setString('qr_code', users.qr_code);
+      sharedPreferences.setString('batch_start_year', users.batch_start_year);
       Navigator.pushReplacement(
           context,
           MaterialPageRoute(
-            builder: (context) => homePage(),
+            builder: (context) => loadScreen(),
           ));
     } else {
       print("User Not Found");
@@ -478,9 +494,10 @@ class _loginPageState extends State<loginPage> {
               height: 30,
             ),
             GestureDetector(
-              onTap: () {
+              onTap: () async {
                 _enrollment = _email.text;
                 _password = password.text;
+                
                 main();
               },
               child: Container(

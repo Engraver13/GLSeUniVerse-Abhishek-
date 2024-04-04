@@ -2,9 +2,11 @@
 
 import 'dart:async';
 
+import 'package:GLSeUniVerse/colors.dart';
 import 'package:GLSeUniVerse/home.dart';
 import 'package:GLSeUniVerse/postDiscussion.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:GLSeUniVerse/barcodePage.dart';
 import 'package:GLSeUniVerse/cameraPage.dart';
@@ -29,14 +31,14 @@ String finalcourse_abbr = '';
 String finalcourse_name = '';
 String finalbatch_start_year = '';
 
-class SplashScreen extends StatefulWidget {
-  const SplashScreen({super.key});
+class loadScreen extends StatefulWidget {
+  const loadScreen({super.key});
 
   @override
-  State<SplashScreen> createState() => _SplashScreenState();
+  State<loadScreen> createState() => _loadScreenState();
 }
 
-class _SplashScreenState extends State<SplashScreen> {
+class _loadScreenState extends State<loadScreen> {
   @override
   void initState() {
     getValidationData().whenComplete(() async{
@@ -91,77 +93,12 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return GetMaterialApp(
-      title: "GLS_eUniverse",
-      debugShowCheckedModeBanner: false,
-      initialRoute: "/",
-      getPages: [
-        GetPage(
-          name: '/',
-          page: () => HomePage(),
-          transition: Transition.noTransition,
+    return Scaffold(
+          body: Center( 
+        child: SpinKitPulsingGrid(
+          color: mainFontColor,
         ),
-        GetPage(
-          name: '/login',
-          page: () => loginPage(),
-          transition: Transition.noTransition,
         ),
-        GetPage(
-          name: '/studentHomePage',
-          page: () => HomePage(),
-          transition: Transition.noTransition,
-        ),
-        GetPage(
-          name: '/qrPage',
-          page: () => qrPage(),
-          transition: Transition.noTransition,
-        ),
-        GetPage(
-          name: '/barcodePage',
-          page: () {
-            return barcodePage();
-          },
-          transition: Transition.noTransition,
-        ),
-        GetPage(
-          name: '/securityPage',
-          page: () {
-            return securityPage();
-          },
-        ),
-        GetPage(
-          name: '/visitorEntryPage',
-          page: () {
-            return visitorEntry();
-          },
-        ),
-        GetPage(
-          name: '/scanQrCode',
-          page: () {
-            return QRCodeScannerScreen();
-          },
-        ),
-        GetPage(
-          name: '/cameraOpen',
-          page: () {
-            return CameraApp();
-          },
-        ),
-        GetPage(
-          name: '/postDiscussion',
-          page: () {
-            return postDiscussion();
-          },
-        ),
-      ],
-      home: Scaffold(
-          body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Lottie.asset("images/mainQr.json"),
-          ],
-        ),
-      )),
     );
   }
 }

@@ -1,6 +1,7 @@
 class users{
 
 static String enrollment ='';
+static String name = '';
 static String email ='';
 static String div ='';
 static String duration ='';
