@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:GLSeUniVerse/colors.dart';
 import 'package:GLSeUniVerse/qrPage.dart';
 import 'package:GLSeUniVerse/scanQrCode.dart';
@@ -159,9 +161,10 @@ class _securityPageState extends State<securityPage> {
                                         const SimpleBarcodeScannerPage(),
                                   ));
                               setState(() {
-                                if (res is String) {
+                                if (res is String && res.isNotEmpty) {
+                                  final data = jsonDecode(res);
                                   // result = res;
-                                  print(res);
+                                  print(data['enrolment']);
                                 }
                               });
                               print("1st Clicked");
