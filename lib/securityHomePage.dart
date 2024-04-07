@@ -1,13 +1,19 @@
 import 'dart:convert';
 
 import 'package:GLSeUniVerse/colors.dart';
+import 'package:GLSeUniVerse/loader.dart';
+import 'package:GLSeUniVerse/loginPage.dart';
 import 'package:GLSeUniVerse/qrPage.dart';
 import 'package:GLSeUniVerse/scanQrCode.dart';
 import 'package:GLSeUniVerse/userDetails.dart';
+import 'package:GLSeUniVerse/users.dart';
 import 'package:GLSeUniVerse/visitorEntryPage.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:simple_barcode_scanner/simple_barcode_scanner.dart';
+import 'package:http/http.dart' as http;
 
 class securityPage extends StatefulWidget {
   const securityPage({super.key});
@@ -160,11 +166,96 @@ class _securityPageState extends State<securityPage> {
                                     builder: (context) =>
                                         const SimpleBarcodeScannerPage(),
                                   ));
-                              setState(() {
+                              setState(() async {
                                 if (res is String && res.isNotEmpty) {
                                   final data = jsonDecode(res);
+                                  // final username;
+                                  // final role;
+                                  // final key;
+
+                                  //final username = data['']
+                                  print(data);
+                                   if(data['role'] == 'Student' || data['role'] == "Alumni")
+                                  {
+                                    qr_username = data['enrolment'];
+                                    qr_role = data['role'];
+                                    qr_key = data['key'];
+                                  
+                                  }
+                                  else if(data['role'] == 'Staff')
+                                  {
+                                    qr_username = data['email'];
+                                    qr_role = data['role'];
+                                    qr_key = data['key'];
+                                  
+                                  }
+                                  print(qr_username);
                                   // result = res;
-                                  print(data['enrolment']);
+                                  print(data);
+                                  //print(data['enrolment']);
+                                  final username = qr_username;
+                                  final role = qr_role;
+                                  final key = qr_key;
+                                  var headers = {
+                                    'Content-Type': 'application/json'
+                                  };
+                                  var request = http.Request(
+                                      'POST',
+                                      Uri.parse(
+                                          'https://poojan16.pythonanywhere.com/api/qr/'));
+                                  request.body = json.encode({
+                                    "username": "$username",
+                                    "key": "$key",
+                                    "role": "$role",
+                                  });
+
+                                   request.headers.addAll(headers);
+                                  // http.StreamedResponse response = await request.send();
+                                  final response = await request.send();
+                                  if (response.statusCode == 500) { 
+                                      print("QR Data Found");
+
+                                       //print(await response.stream.bytesToString());
+                                      final qrdata = jsonDecode(await response.stream.bytesToString());
+                                      print(qrdata);
+                                      //print(qrdata['data']['name']);
+                                      //print(qrdata['data']['department']);
+                                      
+                                      if(qr_role == 'Staff'){
+
+                                        finalqr_name = qrdata['data']['name'];
+                                        finalqr_department = qrdata['data']['department'];
+                                        finalqr_program = 'Not Applicable';
+
+                                        Navigator.push(context,
+                                        MaterialPageRoute(
+                                        builder: (context) => loader()));
+                                      }
+                                      else if(qr_role == 'Student' || qr_role == 'Alumni')
+                                      {
+                                        finalqr_name = qrdata['data']['name'];
+                                        finalqr_department = qrdata['data']['department'];
+                                        finalqr_program = qrdata['data']['program'];
+
+                                        Navigator.push(context,
+                                        MaterialPageRoute(
+                                        builder: (context) => loader()));
+
+                                      }
+                                      // print(finalqr_name);
+                                      // print(finalqr_department);
+                                      // print(finalqr_program);
+      
+                                  }
+                                  else {
+                                        print("User Not Found");
+                                        Fluttertoast.showToast(
+                                        msg: 'Invalid Credentials!',
+                                        toastLength: Toast.LENGTH_SHORT,
+                                        gravity: ToastGravity.BOTTOM,
+                                        fontSize: 16.0);
+                                        print(response.reasonPhrase);
+                                  }
                                 }
                               });
                               print("1st Clicked");
@@ -453,6 +544,18 @@ class _securityPageState extends State<securityPage> {
             //         backgroundColor: Color.fromARGB(255, 63, 121, 235)),
             //   ),
             // ),
+            FloatingActionButton(onPressed: () async {
+              final SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+              await sharedPreferences.clear();
+              print('okay!');
+
+              Navigator.pushReplacement(context, MaterialPageRoute(
+                builder: (context) {
+                  return loginPage();
+                },
+              ));
+            }, child: Icon(Icons.logout),
+            ),
           ],
         ),
       ),

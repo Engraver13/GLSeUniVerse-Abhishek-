@@ -1,5 +1,6 @@
 import 'package:GLSeUniVerse/colors.dart';
 import 'package:GLSeUniVerse/securityHomePage.dart';
+import 'package:GLSeUniVerse/users.dart';
 import 'package:flutter/material.dart';
 
 class userDetails extends StatefulWidget {
@@ -40,25 +41,25 @@ class _userDetailsState extends State<userDetails> {
                 ),
                 // student Name
                 Text(
-                  "Abhi Engraver",
+                  finalqr_name,
                   style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
                 ),
                 SizedBox(
                   height: 10,
                 ),
                 // Enrollment no of student
-                Text(
-                  "201800319010099",
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                ),
-                SizedBox(
-                  height: 5,
-                ),
-                // student Email
-                Text(
-                  "engraver13@gmail.com",
-                  style: TextStyle(fontSize: 15, color: Colors.grey),
-                ),
+                // Text(
+                //   finalEnrollment,
+                //   style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                // ),
+                // SizedBox(
+                //   height: 5,
+                // ),
+                // // student Email
+                // Text(
+                //   finalEmail,
+                //   style: TextStyle(fontSize: 15, color: Colors.grey),
+                // ),
                 SizedBox(
                   height: 20,
                 ),
@@ -80,7 +81,7 @@ class _userDetailsState extends State<userDetails> {
                       child:
                           //Department
                           Text(
-                    "Faculty of Computer Application and IT - FCAIT",
+                    'Department Name: '+finalqr_department,
                     style: TextStyle(color: white),
                   )),
                 ),
@@ -104,7 +105,7 @@ class _userDetailsState extends State<userDetails> {
                   child: Center(
                       //batch,course
                       child: Text(
-                    "Masters of Science in Information Technology\nBatch : 2023-2025",
+                    "Course Name: " + finalqr_program,
                     style: TextStyle(color: white),
                   )),
                 ),

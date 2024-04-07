@@ -262,6 +262,7 @@ class _loginPageState extends State<loginPage> {
 
   // Check User Credentials
   main() async {
+    finalrole = role!;
     var headers = {'Content-Type': 'application/json'};
     var request = http.Request('POST',
         Uri.parse('https://poojan16.pythonanywhere.com/api/userVerify/'));
@@ -279,7 +280,7 @@ class _loginPageState extends State<loginPage> {
 
       //print(await response.stream.bytesToString());
       final data = jsonDecode(await response.stream.bytesToString());
-
+      print(data);
       // // Storing Data in Class
       // users.enrollment = data['data']['stu_data']['enrolment'];
       // users.name = data['data']['stu_data']['name'];
@@ -294,29 +295,44 @@ class _loginPageState extends State<loginPage> {
       // users.qr_code = data['data']['stu_qr'];
       // Get.toNamed('/studentHomePage');
 
-      final SharedPreferences sharedPreferences =
-          await SharedPreferences.getInstance();
-      await sharedPreferences.setString(
-          'email', data['data']['stu_data']['email']);
-      await sharedPreferences.setString(
-          'name', data['data']['stu_data']['name']);
-      await sharedPreferences.setString(
-          'enrollment', data['data']['stu_data']['enrolment']);
-      await sharedPreferences.setString('div', data['data']['stu_data']['div']);
-      await sharedPreferences.setString(
-          'duration', data['data']['stu_data']['batch_duration']);
-      await sharedPreferences.setString(
-          'department', data['data']['stu_data']['dept_name']);
-      await sharedPreferences.setString(
-          'dept_abbr', data['data']['stu_data']['dept_abbr']);
-      await sharedPreferences.setString(
-          'course_abbr', data['data']['stu_data']['program_abbr']);
-      await sharedPreferences.setString(
-          'course_name', data['data']['stu_data']['program_name']);
-      await sharedPreferences.setString('qr_code', data['data']['stu_qr']);
-      await sharedPreferences.setString(
-          'batch_start_year', data['data']['stu_data']['batch_start_year']);
+      if(role == 'Student' || role == 'Alumni'){
 
+          final SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+          await sharedPreferences.setString('email', data['data']['user_data']['email']);
+          await sharedPreferences.setString('name', data['data']['user_data']['name']);
+          await sharedPreferences.setString('enrollment', data['data']['user_data']['enrolment']);
+          await sharedPreferences.setString('div', data['data']['user_data']['div']);
+          await sharedPreferences.setString('duration', data['data']['user_data']['batch_duration']);
+          await sharedPreferences.setString('department', data['data']['user_data']['dept_name']);
+          await sharedPreferences.setString('dept_abbr', data['data']['user_data']['dept_abbr']);
+          await sharedPreferences.setString('course_abbr', data['data']['user_data']['program_abbr']);
+          await sharedPreferences.setString('course_name', data['data']['user_data']['program_name']);
+          await sharedPreferences.setString('qr_code', data['data']['user_qr']);
+          await sharedPreferences.setString('batch_start_year', data['data']['user_data']['batch_start_year']);
+
+      }
+
+      else if(role == 'Staff')
+      {
+          final SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+          await sharedPreferences.setString('email', data['data']['user_data']['email']);
+          await sharedPreferences.setString('name', data['data']['user_data']['name']);
+          await sharedPreferences.setString('contact', data['data']['user_data']['contact']);
+          //await sharedPreferences.setString('enrollment', data['data']['user_data']['enrolment']);
+          //await sharedPreferences.setString('div', data['data']['user_data']['div']);
+          //await sharedPreferences.setString('duration', data['data']['user_data']['batch_duration']);
+          await sharedPreferences.setString('department', data['data']['user_data']['dept_name']);
+          await sharedPreferences.setString('dept_abbr', data['data']['user_data']['dept_abbr']);
+          //await sharedPreferences.setString('course_abbr', data['data']['user_data']['program_abbr']);
+          //await sharedPreferences.setString('course_name', data['data']['user_data']['program_name']);
+          await sharedPreferences.setString('qr_code', data['data']['user_qr']);
+          //await sharedPreferences.setString('batch_start_year', data['data']['user_data']['batch_start_year']);
+
+      }
+      else {
+        final SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+          await sharedPreferences.setString('email', data['data']['user_data']['email']);
+      }
       // final SharedPreferences sharedPreferences =
       //     await SharedPreferences.getInstance();
       // await sharedPreferences.setString('email', users.email);
@@ -399,7 +415,7 @@ class _loginPageState extends State<loginPage> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        "Enrollment Number",
+                        "Username",
                         style: TextStyle(
                             fontWeight: FontWeight.w500,
                             fontSize: 13,
@@ -415,7 +431,7 @@ class _loginPageState extends State<loginPage> {
                         decoration: InputDecoration(
                             prefixIcon: Icon(Icons.email_outlined),
                             prefixIconColor: black,
-                            hintText: "Enrollment Number",
+                            hintText: "Username",
                             border: InputBorder.none),
                       ),
                     ],

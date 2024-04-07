@@ -34,12 +34,30 @@ class _loadScreenState extends State<loadScreen> {
     getValidationData().whenComplete(() async {
       Timer(const Duration(seconds: 4), () {
         print("In Load: " + finalEmail);
-        Navigator.pushReplacement(
+
+        if(finalrole == 'Student'|| finalrole =='Alumni' || finalrole == 'Staff'){
+          Navigator.pushReplacement(
             context,
             MaterialPageRoute(
               builder: (context) =>
                   finalEmail.isEmpty ? loginPage() : homePage(),
             ));
+        }
+
+        else{
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (context) =>
+                  finalEmail.isEmpty ? loginPage() : securityPage(),
+            ));
+        }
+        // Navigator.pushReplacement(
+        //     context,
+        //     MaterialPageRoute(
+        //       builder: (context) =>
+        //           finalEmail.isEmpty ? loginPage() : homePage(),
+        //     ));
 
         // Navigator.pushReplacement(
         //     context,
@@ -52,21 +70,48 @@ class _loadScreenState extends State<loadScreen> {
 
   Future getValidationData() async {
     setState(() {});
-    final SharedPreferences sharedPreferences =
-        await SharedPreferences.getInstance();
-    finalEmail = await sharedPreferences.getString('email') ?? "";
-    finalEnrollment = await sharedPreferences.getString('enrollment') ?? "";
-    finalName = await sharedPreferences.getString('name') ?? "";
-    finaldiv = await sharedPreferences.getString('div') ?? "";
-    finalqr_code = await sharedPreferences.getString('qr_code') ?? "";
-    finalduration = await sharedPreferences.getString('duration') ?? "";
-    finaldepartment = await sharedPreferences.getString('department') ?? "";
-    finaldepartment = await sharedPreferences.getString('dept_abbr') ?? "";
-    finalcourse_abbr = await sharedPreferences.getString('course_abbr') ?? "";
-    finalcourse_name = await sharedPreferences.getString('course_name') ?? "";
-    finalbatch_start_year =
-        await sharedPreferences.getString('batch_start_year') ?? "";
 
+      if(finalrole == 'Student' || finalrole == 'Alumni')
+      {
+
+        final SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+        finalEmail = await sharedPreferences.getString('email') ?? "";
+        finalEnrollment = await sharedPreferences.getString('enrollment') ?? "";
+        finalName = await sharedPreferences.getString('name') ?? "";
+        finaldiv = await sharedPreferences.getString('div') ?? "";
+        finalqr_code = await sharedPreferences.getString('qr_code') ?? "";
+        finalduration = await sharedPreferences.getString('duration') ?? "";
+        finaldepartment = await sharedPreferences.getString('department') ?? "";
+        finaldepartment = await sharedPreferences.getString('dept_abbr') ?? "";
+        finalcourse_abbr = await sharedPreferences.getString('course_abbr') ?? "";
+        finalcourse_name = await sharedPreferences.getString('course_name') ?? "";
+        finalbatch_start_year = await sharedPreferences.getString('batch_start_year') ?? "";
+      
+      }
+
+      else if(finalrole == 'Staff'){
+
+        final SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+        finalEmail = await sharedPreferences.getString('email') ?? "";
+        finalEnrollment = "Not Applicable";
+        finalName = await sharedPreferences.getString('name') ?? "";
+        finalcontact = await sharedPreferences.getString('contact') ?? "";
+        finaldiv = "Not Applicable";
+        finalqr_code = await sharedPreferences.getString('qr_code') ?? "";
+        finalduration = "Not Applicable";
+        finaldepartment = await sharedPreferences.getString('department') ?? "";
+        finaldepartment = await sharedPreferences.getString('dept_abbr') ?? "";
+        finalcourse_abbr = "Not Applicable";
+        finalcourse_name = "Not Applicable";
+        finalbatch_start_year = "Not Applicable";
+      
+
+      }
+
+      else{
+        final SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+        finalEmail = await sharedPreferences.getString('email') ?? "";
+      }
     setState(() {
       //   finalEmail = obtainEmail.toString();
       //   finalEnrollment = obtainEnrollment.toString();
