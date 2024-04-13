@@ -186,7 +186,7 @@ class _requestDocsState extends State<requestDocs> {
                   onPressed: () {},
                   child: Text(
                     "Submit",
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: white),
                   ),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: buttoncolor,

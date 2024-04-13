@@ -2,8 +2,12 @@
 
 import 'dart:async';
 
+import 'package:GLSeUniVerse/alumni_home_page.dart';
 import 'package:GLSeUniVerse/home.dart';
+import 'package:GLSeUniVerse/loadScreen.dart';
 import 'package:GLSeUniVerse/postDiscussion.dart';
+import 'package:GLSeUniVerse/staff_home_page.dart';
+import 'package:GLSeUniVerse/users.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:GLSeUniVerse/barcodePage.dart';
@@ -11,12 +15,11 @@ import 'package:GLSeUniVerse/cameraPage.dart';
 import 'package:GLSeUniVerse/loginPage.dart';
 import 'package:GLSeUniVerse/qrPage.dart';
 import 'package:GLSeUniVerse/homePage.dart';
-import 'package:GLSeUniVerse/scanQrCode.dart';
 import 'package:GLSeUniVerse/securityHomePage.dart';
 import 'package:GLSeUniVerse/visitorEntryPage.dart';
 import 'package:lottie/lottie.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'users.dart';
+//import 'users.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -30,15 +33,37 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
 
+    loadScreen ls = new loadScreen();
+
     getValidationData().whenComplete(() async {
       Timer(const Duration(seconds: 4), () {
         print("In Splash: " + finalEmail);
-        if(finalrole == 'Student'|| finalrole =='Alumni' || finalrole == 'Staff'){
+        print("Role " + finalrole);
+        
+        if(finalrole == 'Student'){
           Navigator.pushReplacement(
             context,
             MaterialPageRoute(
               builder: (context) =>
                   finalEmail.isEmpty ? loginPage() : homePage(),
+            ));
+        }
+        else if(finalrole == 'Alumni'){
+            Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (context) =>
+                  finalEmail.isEmpty ? loginPage() : alumni_home_page(),
+            ));
+        }
+
+        else if(finalrole == 'Staff'){
+            print("Entered in Staff");
+            Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (context) =>
+                  finalEmail.isEmpty ? loginPage() : staff_home_page(),
             ));
         }
 
@@ -66,6 +91,11 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   Future getValidationData() async {
+
+    final SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    finalrole = await sharedPreferences.getString('role') ?? "";
+
+    print("In Splash Check Role :" + finalrole);
     
     if(finalrole == 'Student' || finalrole == 'Alumni')
       {
@@ -78,28 +108,30 @@ class _SplashScreenState extends State<SplashScreen> {
         finalqr_code = await sharedPreferences.getString('qr_code') ?? "";
         finalduration = await sharedPreferences.getString('duration') ?? "";
         finaldepartment = await sharedPreferences.getString('department') ?? "";
-        finaldepartment = await sharedPreferences.getString('dept_abbr') ?? "";
+        finaldept_abbr = await sharedPreferences.getString('dept_abbr') ?? "";
         finalcourse_abbr = await sharedPreferences.getString('course_abbr') ?? "";
         finalcourse_name = await sharedPreferences.getString('course_name') ?? "";
         finalbatch_start_year = await sharedPreferences.getString('batch_start_year') ?? "";
-      
+        
+              
       }
 
       else if(finalrole == 'Staff'){
 
         final SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
         finalEmail = await sharedPreferences.getString('email') ?? "";
-        finalEnrollment = "Not Applicable";
+        //finalEnrollment = "Not Applicable";
         finalName = await sharedPreferences.getString('name') ?? "";
         finalcontact = await sharedPreferences.getString('contact') ?? "";
-        finaldiv = "Not Applicable";
+        //finaldiv = "Not Applicable";
         finalqr_code = await sharedPreferences.getString('qr_code') ?? "";
-        finalduration = "Not Applicable";
+        //finalduration = "Not Applicable";
         finaldepartment = await sharedPreferences.getString('department') ?? "";
-        finaldepartment = await sharedPreferences.getString('dept_abbr') ?? "";
-        finalcourse_abbr = "Not Applicable";
-        finalcourse_name = "Not Applicable";
+        finaldept_abbr = await sharedPreferences.getString('dept_abbr') ?? "";
+        //finalcourse_abbr = "Not Applicable";
+        //finalcourse_name = "Not Applicable";
         finalbatch_start_year = "Not Applicable";
+        //finalrole = await sharedPreferences.getString('role') ?? "";
       
 
       }
@@ -107,6 +139,7 @@ class _SplashScreenState extends State<SplashScreen> {
       else{
         final SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
         finalEmail = await sharedPreferences.getString('email') ?? "";
+        //finalrole = await sharedPreferences.getString('role') ?? "";
       }
     setState(() {
       // finalEmail = obtainEmail.toString();
@@ -122,6 +155,7 @@ class _SplashScreenState extends State<SplashScreen> {
       // finalbatch_start_year = obtainbatch_start_year.toString();
     });
     print(finalEmail);
+    print(finalrole);
   }
 
   @override
@@ -129,66 +163,6 @@ class _SplashScreenState extends State<SplashScreen> {
     return GetMaterialApp(
       title: "GLS_eUniverse",
       debugShowCheckedModeBanner: false,
-      initialRoute: "/",
-      getPages: [
-        GetPage(
-          name: '/',
-          page: () => HomePage(),
-          transition: Transition.noTransition,
-        ),
-        GetPage(
-          name: '/login',
-          page: () => loginPage(),
-          transition: Transition.noTransition,
-        ),
-        GetPage(
-          name: '/studentHomePage',
-          page: () => HomePage(),
-          transition: Transition.noTransition,
-        ),
-        GetPage(
-          name: '/qrPage',
-          page: () => qrPage(),
-          transition: Transition.noTransition,
-        ),
-        GetPage(
-          name: '/barcodePage',
-          page: () {
-            return barcodePage();
-          },
-          transition: Transition.noTransition,
-        ),
-        GetPage(
-          name: '/securityPage',
-          page: () {
-            return securityPage();
-          },
-        ),
-        GetPage(
-          name: '/visitorEntryPage',
-          page: () {
-            return visitorEntry();
-          },
-        ),
-        GetPage(
-          name: '/scanQrCode',
-          page: () {
-            return QRCodeScannerScreen();
-          },
-        ),
-        GetPage(
-          name: '/cameraOpen',
-          page: () {
-            return CameraApp();
-          },
-        ),
-        GetPage(
-          name: '/postDiscussion',
-          page: () {
-            return postDiscussion();
-          },
-        ),
-      ],
       home: Scaffold(
           body: SingleChildScrollView(
         child: Column(

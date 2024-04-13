@@ -1,5 +1,6 @@
 // ignore_for_file: file_names
 import 'package:GLSeUniVerse/colors.dart';
+import 'package:GLSeUniVerse/users.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -49,14 +50,14 @@ class _barcodePageState extends State<barcodePage> {
               children: [
                 //student Name
                 Text(
-                  "Abhi Engraver",
+                  finalName,
                   style: TextStyle(fontSize: 23, fontWeight: FontWeight.bold),
                 ),
                 SizedBox(
                   height: 8,
                 ),
                 // student Email
-                Text("engraver13@gmail.com"),
+                Text(finalEmail),
                 SizedBox(
                   height: 25,
                 ),
@@ -90,7 +91,7 @@ class _barcodePageState extends State<barcodePage> {
                   //batch,division,course
                   child: Center(
                     child: Text(
-                        "Masters of Science in Information Technology\n\nBatch: 2023-2025\n\nDiv: A ",
+                        finaldepartment + ' (' + finaldept_abbr + ')',
                         style: TextStyle(color: white)),
                   ),
                 ),

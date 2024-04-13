@@ -109,6 +109,32 @@ class _userDetailsState extends State<userDetails> {
                     style: TextStyle(color: white),
                   )),
                 ),
+
+                SizedBox(
+                  height: 20,
+                ),
+                Container(
+                  padding: EdgeInsets.all(8),
+                  width: 350,
+                  decoration: BoxDecoration(
+                      color: buttoncolor,
+                      borderRadius: BorderRadius.circular(10),
+                      boxShadow: [
+                        BoxShadow(
+                          color: grey.withOpacity(0.03),
+                          spreadRadius: 10,
+                          blurRadius: 3,
+                          // changes position of shadow
+                        ),
+                      ]),
+                  child: Center(
+                      //batch,course
+                      child: Text(
+                    "Role : " + finalqr_role,
+                    style: TextStyle(color: white),
+                  )),
+                ),
+                
                 SizedBox(
                   height: 50,
                 ),

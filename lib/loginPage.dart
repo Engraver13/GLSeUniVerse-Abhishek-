@@ -262,10 +262,10 @@ class _loginPageState extends State<loginPage> {
 
   // Check User Credentials
   main() async {
-    finalrole = role!;
+    checkrole = role!;
     var headers = {'Content-Type': 'application/json'};
     var request = http.Request('POST',
-        Uri.parse('https://poojan16.pythonanywhere.com/api/userVerify/'));
+        Uri.parse('https://poojan16.pythonanywhere.com/api/getUserDetails/'));
     request.body = json.encode({
       "username": "$_enrollment",
       "password": "$_password",
@@ -309,6 +309,8 @@ class _loginPageState extends State<loginPage> {
           await sharedPreferences.setString('course_name', data['data']['user_data']['program_name']);
           await sharedPreferences.setString('qr_code', data['data']['user_qr']);
           await sharedPreferences.setString('batch_start_year', data['data']['user_data']['batch_start_year']);
+          await sharedPreferences.setString('role', data['data']['user_data']['role']);
+          //finalrole = data['data']['user_data']['role'];
 
       }
 
@@ -327,11 +329,15 @@ class _loginPageState extends State<loginPage> {
           //await sharedPreferences.setString('course_name', data['data']['user_data']['program_name']);
           await sharedPreferences.setString('qr_code', data['data']['user_qr']);
           //await sharedPreferences.setString('batch_start_year', data['data']['user_data']['batch_start_year']);
+          await sharedPreferences.setString('role', data['data']['user_data']['role']);
+          //finalrole = data['data']['user_data']['role'];
 
       }
       else {
         final SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
           await sharedPreferences.setString('email', data['data']['user_data']['email']);
+          //finalrole = data['data']['user_data']['role'];
+          await sharedPreferences.setString('role', data['data']['user_data']['role']);
       }
       // final SharedPreferences sharedPreferences =
       //     await SharedPreferences.getInstance();
@@ -352,7 +358,19 @@ class _loginPageState extends State<loginPage> {
           MaterialPageRoute(
             builder: (context) => loadScreen(),
           ));
-    } else {
+    } 
+
+    else if(response.statusCode == 406){
+      final data = jsonDecode(await response.stream.bytesToString());
+      print(data);
+        Fluttertoast.showToast(
+          msg: data['error'],
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          fontSize: 16.0);
+      
+    }
+    else {
       print("User Not Found");
       Fluttertoast.showToast(
           msg: 'Invalid Credentials!',

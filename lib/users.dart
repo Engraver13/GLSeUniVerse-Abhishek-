@@ -11,10 +11,12 @@ String finalcourse_name = '';
 String finalbatch_start_year = '';
 String finalrole = '';
 String finalcontact='';
+String checkrole = '';
 
 String finalqr_name = '';
 String finalqr_program = '';
 String finalqr_department = '';
+String finalqr_role ='Not Applicable';
 
 String qr_username = '';
 String qr_role = '';

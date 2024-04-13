@@ -141,7 +141,7 @@ class _visitorEntryState extends State<visitorEntry> {
                   },
                   child: Text(
                     "Add Entry",
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold,color: white),
                   ),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: buttoncolor,

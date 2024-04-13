@@ -14,14 +14,14 @@ import 'package:GLSeUniVerse/qrPage.dart';
 import 'package:icon_badge/icon_badge.dart';
 // import 'dart:ui' as ui;
 
-class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+class staff_Homepage extends StatefulWidget {
+  const staff_Homepage({super.key});
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<staff_Homepage> createState() => _staff_HomepageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _staff_HomepageState extends State<staff_Homepage> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -99,7 +99,7 @@ class _HomePageState extends State<HomePage> {
                                   height: 10,
                                 ),
                                 Text(
-                                  finalEnrollment,
+                                  finalEmail,
                                   style: TextStyle(
                                       fontSize: 14,
                                       fontWeight: FontWeight.w500,
@@ -160,13 +160,8 @@ class _HomePageState extends State<HomePage> {
                               child: GestureDetector(
                                 onTap: () {
                                   Navigator.push(context, MaterialPageRoute(
-                                    builder: (context) => securityPage(),
+                                    builder: (context) => requestDocs(),
                                   ));
-                                  // Navigator.push(
-                                  //     context,
-                                  //     MaterialPageRoute(
-                                  //       builder: (context) => requestDocs(),
-                                  //     ));
                                   print("1st Clicked");
                                 },
                                 child: Container(
@@ -310,7 +305,7 @@ class _HomePageState extends State<HomePage> {
                                                     CrossAxisAlignment.start,
                                                 children: [
                                                   Text(
-                                                    "Request Docs",
+                                                    "View Discussion",
                                                     style: TextStyle(
                                                         fontSize: 16,
                                                         color: black,

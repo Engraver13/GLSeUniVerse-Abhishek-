@@ -2,9 +2,11 @@
 
 import 'dart:async';
 
+import 'package:GLSeUniVerse/alumni_home_page.dart';
 import 'package:GLSeUniVerse/colors.dart';
 import 'package:GLSeUniVerse/home.dart';
 import 'package:GLSeUniVerse/postDiscussion.dart';
+import 'package:GLSeUniVerse/staff_home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
@@ -13,7 +15,6 @@ import 'package:GLSeUniVerse/cameraPage.dart';
 import 'package:GLSeUniVerse/loginPage.dart';
 import 'package:GLSeUniVerse/qrPage.dart';
 import 'package:GLSeUniVerse/homePage.dart';
-import 'package:GLSeUniVerse/scanQrCode.dart';
 import 'package:GLSeUniVerse/securityHomePage.dart';
 import 'package:GLSeUniVerse/visitorEntryPage.dart';
 import 'package:lottie/lottie.dart';
@@ -34,8 +35,8 @@ class _loadScreenState extends State<loadScreen> {
     getValidationData().whenComplete(() async {
       Timer(const Duration(seconds: 4), () {
         print("In Load: " + finalEmail);
-
-        if(finalrole == 'Student'|| finalrole =='Alumni' || finalrole == 'Staff'){
+        print("In Load: " + finalrole);
+        if(finalrole == 'Student'){
           Navigator.pushReplacement(
             context,
             MaterialPageRoute(
@@ -43,7 +44,24 @@ class _loadScreenState extends State<loadScreen> {
                   finalEmail.isEmpty ? loginPage() : homePage(),
             ));
         }
+        else if(finalrole == 'Alumni'){
+            Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (context) =>
+                  finalEmail.isEmpty ? loginPage() : alumni_home_page(),
+            ));
+        }
 
+        else if(finalrole == 'Staff'){
+            print("Entered in Staff");
+            Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (context) =>
+                  finalEmail.isEmpty ? loginPage() : staff_home_page(),
+            ));
+        }
         else{
           Navigator.pushReplacement(
             context,
@@ -69,9 +87,9 @@ class _loadScreenState extends State<loadScreen> {
   }
 
   Future getValidationData() async {
-    setState(() {});
-
-      if(finalrole == 'Student' || finalrole == 'Alumni')
+    //setState(() {});
+      print("Check Role" + checkrole);
+      if(checkrole == 'Student' || checkrole == 'Alumni')
       {
 
         final SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
@@ -82,28 +100,34 @@ class _loadScreenState extends State<loadScreen> {
         finalqr_code = await sharedPreferences.getString('qr_code') ?? "";
         finalduration = await sharedPreferences.getString('duration') ?? "";
         finaldepartment = await sharedPreferences.getString('department') ?? "";
-        finaldepartment = await sharedPreferences.getString('dept_abbr') ?? "";
+        finaldept_abbr = await sharedPreferences.getString('dept_abbr') ?? "";
         finalcourse_abbr = await sharedPreferences.getString('course_abbr') ?? "";
         finalcourse_name = await sharedPreferences.getString('course_name') ?? "";
         finalbatch_start_year = await sharedPreferences.getString('batch_start_year') ?? "";
+        finalrole = await sharedPreferences.getString('role') ?? "";
       
       }
 
-      else if(finalrole == 'Staff'){
+      else if(checkrole == 'Staff'){
 
         final SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
         finalEmail = await sharedPreferences.getString('email') ?? "";
-        finalEnrollment = "Not Applicable";
+        //finalEnrollment = "Not Applicable";
+        finalEnrollment ='';
         finalName = await sharedPreferences.getString('name') ?? "";
         finalcontact = await sharedPreferences.getString('contact') ?? "";
-        finaldiv = "Not Applicable";
+        //finaldiv = "Not Applicable";
+        finaldiv ='';
         finalqr_code = await sharedPreferences.getString('qr_code') ?? "";
-        finalduration = "Not Applicable";
+        //finalduration = "Not Applicable";
         finaldepartment = await sharedPreferences.getString('department') ?? "";
-        finaldepartment = await sharedPreferences.getString('dept_abbr') ?? "";
-        finalcourse_abbr = "Not Applicable";
-        finalcourse_name = "Not Applicable";
+        finaldept_abbr = await sharedPreferences.getString('dept_abbr') ?? "";
+        //finalcourse_abbr = "Not Applicable";
+        finalcourse_abbr ='';
+        finalcourse_name = '';
+        //finalcourse_name = "Not Applicable";
         finalbatch_start_year = "Not Applicable";
+        finalrole = await sharedPreferences.getString('role') ?? "";
       
 
       }
@@ -111,6 +135,7 @@ class _loadScreenState extends State<loadScreen> {
       else{
         final SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
         finalEmail = await sharedPreferences.getString('email') ?? "";
+        finalrole = await sharedPreferences.getString('role') ?? "";
       }
     setState(() {
       //   finalEmail = obtainEmail.toString();
@@ -125,6 +150,7 @@ class _loadScreenState extends State<loadScreen> {
       //   finalcourse_name = obtaincourse_name.toString();
       //   finalbatch_start_year = obtainbatch_start_year.toString();
     });
+    
     print(finalEmail);
   }
 
