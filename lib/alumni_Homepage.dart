@@ -1,11 +1,13 @@
 // ignore_for_file: file_names
 
+import 'package:GLSeUniVerse/alumni_sideNavBar.dart';
 import 'package:GLSeUniVerse/colors.dart';
 import 'package:GLSeUniVerse/postDiscussion.dart';
 import 'package:GLSeUniVerse/users.dart';
 import 'package:GLSeUniVerse/requestDocs.dart';
 import 'package:GLSeUniVerse/securityHomePage.dart';
 import 'package:GLSeUniVerse/sideNavigation.dart';
+import 'package:GLSeUniVerse/viewDiscussion.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -31,7 +33,7 @@ class _alumni_HomePageState extends State<alumni_HomePage> {
     return Scaffold(
         backgroundColor: primary,
         key: _scaffoldKey,
-        drawer: sideNavigation(),
+        drawer: alumni_sideNavBar(),
         body: SafeArea(
             child: SingleChildScrollView(
           child: Column(
@@ -306,7 +308,7 @@ class _alumni_HomePageState extends State<alumni_HomePage> {
                                                     CrossAxisAlignment.start,
                                                 children: [
                                                   Text(
-                                                    "View Discussion",
+                                                    "Post Discussion",
                                                     style: TextStyle(
                                                         fontSize: 16,
                                                         color: black,
@@ -335,7 +337,7 @@ class _alumni_HomePageState extends State<alumni_HomePage> {
                                   Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                        builder: (context) => postDiscussion(),
+                                        builder: (context) => viewDiscussion(),
                                       ));
                                   print("Clicked 3rd row");
                                 },
@@ -393,7 +395,7 @@ class _alumni_HomePageState extends State<alumni_HomePage> {
                                                     CrossAxisAlignment.start,
                                                 children: [
                                                   Text(
-                                                    "Post Discussion",
+                                                    "View Discussion",
                                                     style: TextStyle(
                                                         fontSize: 16,
                                                         color: black,

@@ -5,6 +5,7 @@ import 'package:GLSeUniVerse/users.dart';
 import 'package:GLSeUniVerse/requestDocs.dart';
 import 'package:GLSeUniVerse/securityHomePage.dart';
 import 'package:GLSeUniVerse/sideNavigation.dart';
+import 'package:GLSeUniVerse/viewDiscussion.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -160,7 +161,7 @@ class _HomePageState extends State<HomePage> {
                               child: GestureDetector(
                                 onTap: () {
                                   Navigator.push(context, MaterialPageRoute(
-                                    builder: (context) => securityPage(),
+                                    builder: (context) => requestDocs(),
                                   ));
                                   // Navigator.push(
                                   //     context,
@@ -252,7 +253,7 @@ class _HomePageState extends State<HomePage> {
                                   Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                        builder: (context) => requestDocs(),
+                                        builder: (context) => viewDiscussion(),
                                       ));
                                   print("Clicked!!");
                                 },
@@ -310,7 +311,7 @@ class _HomePageState extends State<HomePage> {
                                                     CrossAxisAlignment.start,
                                                 children: [
                                                   Text(
-                                                    "Request Docs",
+                                                    "View Discussion",
                                                     style: TextStyle(
                                                         fontSize: 16,
                                                         color: black,

@@ -255,7 +255,7 @@ class _loginPageState extends State<loginPage> {
     });
   }
 
-  var roles = ["Student", "Alumini", "Staff", "Guard"];
+  var roles = ["Student", "Alumni", "Staff", "Guard"];
   String? role;
 
   List<dynamic> _data = [];

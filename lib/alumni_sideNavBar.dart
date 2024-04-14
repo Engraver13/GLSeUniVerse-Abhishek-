@@ -12,8 +12,8 @@ import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'users.dart';
 
-class sideNavigation extends StatelessWidget {
-  const sideNavigation({super.key});
+class alumni_sideNavBar extends StatelessWidget {
+  const alumni_sideNavBar({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -85,30 +85,30 @@ class sideNavigation extends StatelessWidget {
         SizedBox(
           height: 20,
         ),
-        // ListTile(
-        //   leading: Icon(
-        //     Icons.announcement,
-        //     size: 30,
-        //     color: mainFontColor,
-        //   ),
-        //   title: Text(
-        //     "Discussions",
-        //     style: TextStyle(
-        //         fontWeight: FontWeight.bold,
-        //         fontSize: 20,
-        //         color: mainFontColor),
-        //   ),
-        //   onTap: () {
-        //     Navigator.push(context, MaterialPageRoute(
-        //       builder: (context) {
-        //         return postDiscussion();
-        //       },
-        //     ));
-        //   },
-        // ),
-        // SizedBox(
-        //   height: 20,
-        // ),
+        ListTile(
+          leading: Icon(
+            Icons.announcement,
+            size: 30,
+            color: mainFontColor,
+          ),
+          title: Text(
+            "Discussions",
+            style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 20,
+                color: mainFontColor),
+          ),
+          onTap: () {
+            Navigator.push(context, MaterialPageRoute(
+              builder: (context) {
+                return postDiscussion();
+              },
+            ));
+          },
+        ),
+        SizedBox(
+          height: 20,
+        ),
         ListTile(
           leading: Icon(
             CupertinoIcons.barcode,
@@ -170,6 +170,7 @@ class sideNavigation extends StatelessWidget {
               gravity: ToastGravity.BOTTOM,
               fontSize: 16.0
             );
+      
 
             Navigator.pushReplacement(context, MaterialPageRoute(
               builder: (context) {
