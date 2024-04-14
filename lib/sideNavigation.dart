@@ -5,6 +5,7 @@ import 'package:GLSeUniVerse/editProfile.dart';
 import 'package:GLSeUniVerse/loginPage.dart';
 import 'package:GLSeUniVerse/postDiscussion.dart';
 import 'package:GLSeUniVerse/qrPage.dart';
+import 'package:GLSeUniVerse/staff_qr.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -75,11 +76,21 @@ class sideNavigation extends StatelessWidget {
                 color: mainFontColor),
           ),
           onTap: () {
-            Navigator.push(context, MaterialPageRoute(
+            print(finalrole);
+            if(finalrole == 'Staff'){
+              Navigator.push(context, MaterialPageRoute(
               builder: (context) {
-                return qrPage();
+                return staff_qr();
               },
             ));
+            }
+            else {
+              Navigator.push(context, MaterialPageRoute(
+                builder: (context) {
+                  return qrPage();
+                },
+              ));
+            }
           },
         ),
         SizedBox(

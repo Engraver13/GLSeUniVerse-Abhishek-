@@ -32,9 +32,6 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-
-    loadScreen ls = new loadScreen();
-
     getValidationData().whenComplete(() async {
       Timer(const Duration(seconds: 4), () {
         print("In Splash: " + finalEmail);

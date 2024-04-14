@@ -160,7 +160,7 @@ class _requestDocsState extends State<requestDocs> {
                           width: 6,
                         ),
                         Container(
-                          width: 220,
+                          width: 200,
                           child: _selectedFile != null
                               ? Text('Selected File: ${_selectedFile!.path}')
                               : Text('No file selected'),
