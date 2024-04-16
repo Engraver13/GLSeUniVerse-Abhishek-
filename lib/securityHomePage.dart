@@ -151,6 +151,7 @@ class _securityPageState extends State<securityPage> {
                                         finalqr_name = qrdata['data']['name'];
                                         finalqr_department = qrdata['data']['department'];
                                         finalqr_program = 'Not Applicable';
+                                        finalqr_profile = qrdata['data']['profile'];
 
                                         Navigator.push(context,
                                         MaterialPageRoute(
@@ -161,6 +162,7 @@ class _securityPageState extends State<securityPage> {
                                         finalqr_name = qrdata['data']['name'];
                                         finalqr_department = qrdata['data']['department'];
                                         finalqr_program = qrdata['data']['program'];
+                                        finalqr_profile = qrdata['data']['profile'];
 
                                         Navigator.push(context,
                                         MaterialPageRoute(
@@ -314,6 +316,7 @@ class _securityPageState extends State<securityPage> {
                                         finalqr_name = qrdata['data']['name'];
                                         finalqr_department = qrdata['data']['department'];
                                         finalqr_program = 'Not Applicable';
+                                        finalqr_profile = qrdata['data']['profile'];
 
                                         Navigator.push(context,
                                         MaterialPageRoute(
@@ -324,6 +327,7 @@ class _securityPageState extends State<securityPage> {
                                         finalqr_name = qrdata['data']['name'];
                                         finalqr_department = qrdata['data']['department'];
                                         finalqr_program = qrdata['data']['program'];
+                                        finalqr_profile = qrdata['data']['profile'];
 
                                         Navigator.push(context,
                                         MaterialPageRoute(

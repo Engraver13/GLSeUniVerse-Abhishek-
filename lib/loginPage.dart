@@ -310,6 +310,7 @@ class _loginPageState extends State<loginPage> {
           await sharedPreferences.setString('qr_code', data['data']['user_qr']);
           await sharedPreferences.setString('batch_start_year', data['data']['user_data']['batch_start_year']);
           await sharedPreferences.setString('role', data['data']['user_data']['role']);
+          await sharedPreferences.setString('profile', data['data']['user_data']['profile']);
           //finalrole = data['data']['user_data']['role'];
 
       }
@@ -330,6 +331,7 @@ class _loginPageState extends State<loginPage> {
           await sharedPreferences.setString('qr_code', data['data']['user_qr']);
           //await sharedPreferences.setString('batch_start_year', data['data']['user_data']['batch_start_year']);
           await sharedPreferences.setString('role', data['data']['user_data']['role']);
+          await sharedPreferences.setString('profile', data['data']['user_data']['profile']);
           //finalrole = data['data']['user_data']['role'];
 
       }
@@ -338,6 +340,7 @@ class _loginPageState extends State<loginPage> {
           await sharedPreferences.setString('email', data['data']['user_data']['email']);
           //finalrole = data['data']['user_data']['role'];
           await sharedPreferences.setString('role', data['data']['user_data']['role']);
+          await sharedPreferences.setString('profile', data['data']['user_data']['profile']);
       }
       // final SharedPreferences sharedPreferences =
       //     await SharedPreferences.getInstance();

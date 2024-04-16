@@ -17,6 +17,11 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: new ThemeData(
         fontFamily: GoogleFonts.poppins().fontFamily,
+        appBarTheme: AppBarTheme(
+          iconTheme: IconThemeData(
+              color: Colors.white), // Set back arrow color to white
+        ),
+        
       ),
       home: SplashScreen(),
     );

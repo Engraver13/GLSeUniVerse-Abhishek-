@@ -7,6 +7,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'dart:convert';
+import 'package:flutter_windowmanager/flutter_windowmanager.dart';
 
 class staff_qr extends StatefulWidget {
   const staff_qr({super.key});
@@ -18,6 +19,21 @@ class staff_qr extends StatefulWidget {
 class _staff_qrState extends State<staff_qr> {
   int myIndex = 0;
   //String qr = users.qr_code;
+
+  @override
+  void initState(){
+    super.initState();
+    FlutterWindowManager.addFlags(FlutterWindowManager.FLAG_SECURE);
+  }
+  @override
+  void dispose(){
+    FlutterWindowManager.clearFlags(
+      FlutterWindowManager.FLAG_SECURE
+    );
+
+    super.dispose();
+  }
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,10 +50,10 @@ class _staff_qrState extends State<staff_qr> {
                 CircleAvatar(
                   radius: 50,
                   //backgroundImage: AssetImage('images/profile.png'),
-                  backgroundImage: NetworkImage(
-                      "https://images.unsplash.com/photo-1531256456869-ce942a665e80?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MTI4fHxwcm9maWxlfGVufDB8fDB8&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60"),
+                  // backgroundImage: NetworkImage(
+                  //     "https://images.unsplash.com/photo-1531256456869-ce942a665e80?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MTI4fHxwcm9maWxlfGVufDB8fDB8&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60"),
 
-                  //child: ImageFromBase64String(base64String: users.qr_code),
+                  child: ImageFromBase64String(base64String: '$finalprofile'),
                 ),
                 SizedBox(
                   height: 10,

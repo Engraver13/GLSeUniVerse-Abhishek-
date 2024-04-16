@@ -23,7 +23,14 @@ class _postDiscussionState extends State<postDiscussion> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: primary,
+      appBar: AppBar(
+        title: Text(
+          "Post Discussion",
+          style: TextStyle(color: white, fontWeight: FontWeight.bold),
+        ),
+        backgroundColor: mainFontColor,
+      ),
+      backgroundColor: arrowbgColor,
       body: SingleChildScrollView(
         child: Center(
           child: Container(
@@ -36,29 +43,36 @@ class _postDiscussionState extends State<postDiscussion> {
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                SizedBox(
-                  height: 50,
-                ),
-                Container(
-                  padding: EdgeInsets.all(8),
-                  decoration: BoxDecoration(
-                      color: white, borderRadius: BorderRadius.circular(10)),
-                  child: Text(
-                    "Post Discussion",
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                  ),
-                ),
+                // SizedBox(
+                //   height: 50,
+                // ),
+                // Container(
+                //   padding: EdgeInsets.all(8),
+                //   decoration: BoxDecoration(
+                //       color: white, borderRadius: BorderRadius.circular(10)),
+                //   child: Text(
+                //     "Post Discussion",
+                //     style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                //   ),
+                // ),
                 SizedBox(
                   height: 25,
                 ),
-                Container(
-                        width: 350,
-                        child: TextField(
-                          controller: ptitle,
-                          decoration: InputDecoration(
-                              labelText: "Title"),
-                        ),
-                      ),
+                // Container(
+                //   width: 350,
+                //   child: TextField(
+                //     controller: ptitle,
+                //     decoration: InputDecoration(labelText: "Title"),
+                //   ),
+                // ),
+                TextField(
+                  controller: ptitle,
+                  // maxLines: 10,
+                  decoration: InputDecoration(
+                      labelText: "Title",
+                      hintText: "Give title",
+                      border: OutlineInputBorder()),
+                ),
                 SizedBox(
                   height: 10,
                 ),
@@ -84,8 +98,10 @@ class _postDiscussionState extends State<postDiscussion> {
                       print(finalEnrollment);
                       //checkrole = role!;
                       var headers = {'Content-Type': 'application/json'};
-                      var request = http.Request('POST',
-                      Uri.parse('https://poojan16.pythonanywhere.com/api/createPost/'));
+                      var request = http.Request(
+                          'POST',
+                          Uri.parse(
+                              'https://poojan16.pythonanywhere.com/api/createPost/'));
                       request.body = json.encode({
                         "username": "$finalEnrollment",
                         "post_title": "$post_title",
@@ -96,39 +112,33 @@ class _postDiscussionState extends State<postDiscussion> {
                       final response = await request.send();
 
                       if (response.statusCode == 201) {
-                        
                         print("Posted Successfully");
-                        final data = jsonDecode(await response.stream.bytesToString());
+                        final data =
+                            jsonDecode(await response.stream.bytesToString());
                         print(data);
 
                         Fluttertoast.showToast(
-                        msg: data['success'],
-                        toastLength: Toast.LENGTH_LONG,
-                        gravity: ToastGravity.BOTTOM,
-                        fontSize: 16.0);
-      
+                            msg: data['success'],
+                            toastLength: Toast.LENGTH_LONG,
+                            gravity: ToastGravity.BOTTOM,
+                            fontSize: 16.0);
 
                         Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => alumni_home_page(),
-                          ));
-
-                      }
-                      else{
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => alumni_home_page(),
+                            ));
+                      } else {
                         print("Not valid!!!");
-                        final data = jsonDecode(await response.stream.bytesToString());
+                        final data =
+                            jsonDecode(await response.stream.bytesToString());
                         print(data);
                         Fluttertoast.showToast(
-                        msg: data['error'],
-                        toastLength: Toast.LENGTH_SHORT,
-                        gravity: ToastGravity.BOTTOM,
-                        fontSize: 16.0);
-      
+                            msg: data['error'],
+                            toastLength: Toast.LENGTH_SHORT,
+                            gravity: ToastGravity.BOTTOM,
+                            fontSize: 16.0);
                       }
-    
-
-
 
                       // Navigator.pushReplacement(
                       //     context,
@@ -148,7 +158,6 @@ class _postDiscussionState extends State<postDiscussion> {
                     ),
                   ),
                 ),
-
 
                 // Container(
                 //   width: 420,

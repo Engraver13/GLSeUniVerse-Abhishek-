@@ -36,6 +36,7 @@ class _SplashScreenState extends State<SplashScreen> {
       Timer(const Duration(seconds: 4), () {
         print("In Splash: " + finalEmail);
         print("Role " + finalrole);
+        print("In Load: " + finalprofile);
         
         if(finalrole == 'Student'){
           Navigator.pushReplacement(
@@ -109,6 +110,7 @@ class _SplashScreenState extends State<SplashScreen> {
         finalcourse_abbr = await sharedPreferences.getString('course_abbr') ?? "";
         finalcourse_name = await sharedPreferences.getString('course_name') ?? "";
         finalbatch_start_year = await sharedPreferences.getString('batch_start_year') ?? "";
+        finalprofile = await sharedPreferences.getString('profile') ?? "";
         
               
       }
@@ -128,6 +130,7 @@ class _SplashScreenState extends State<SplashScreen> {
         //finalcourse_abbr = "Not Applicable";
         //finalcourse_name = "Not Applicable";
         finalbatch_start_year = "Not Applicable";
+        finalprofile = await sharedPreferences.getString('profile') ?? "";
         //finalrole = await sharedPreferences.getString('role') ?? "";
       
 
@@ -136,6 +139,8 @@ class _SplashScreenState extends State<SplashScreen> {
       else{
         final SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
         finalEmail = await sharedPreferences.getString('email') ?? "";
+        finalrole = await sharedPreferences.getString('role') ?? "";
+        finalprofile = await sharedPreferences.getString('profile') ?? "";
         //finalrole = await sharedPreferences.getString('role') ?? "";
       }
     setState(() {

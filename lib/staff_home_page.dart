@@ -10,6 +10,7 @@ import 'package:get/get.dart';
 import 'package:GLSeUniVerse/barcodePage.dart';
 import 'package:GLSeUniVerse/main.dart';
 import 'package:GLSeUniVerse/qrPage.dart';
+import 'package:flutter_windowmanager/flutter_windowmanager.dart';
 // import 'dart:ui' as ui;
 
 class staff_home_page extends StatefulWidget {
@@ -27,6 +28,21 @@ class _staff_home_pageState extends State<staff_home_page> {
     staff_Homepage(),
     barcodePage(),
   ];
+
+  @override
+  void initState(){
+    super.initState();
+    FlutterWindowManager.addFlags(FlutterWindowManager.FLAG_SECURE);
+  }
+  @override
+  void dispose(){
+    FlutterWindowManager.clearFlags(
+      FlutterWindowManager.FLAG_SECURE
+    );
+
+    super.dispose();
+  }
+  
 
   @override
   Widget build(BuildContext context) {

@@ -3,6 +3,7 @@
 import 'package:GLSeUniVerse/colors.dart';
 import 'package:GLSeUniVerse/loginPage.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class forgotPassword extends StatefulWidget {
   const forgotPassword({super.key});
@@ -15,36 +16,36 @@ class _forgotPasswordState extends State<forgotPassword> {
   TextEditingController _email = TextEditingController();
 
   // function - message for email sent to user
-  void _showMessage(BuildContext context) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text(
-            'Email sent!',
-            style: TextStyle(fontWeight: FontWeight.bold, color: mainFontColor),
-          ),
-          content: Text('Please check your mail.'),
-          actions: [
-            ElevatedButton(
-              onPressed: () {
-                Navigator.push(context, MaterialPageRoute(
-                  builder: (context) {
-                    return loginPage();
-                  },
-                ));
-              },
-              child: Text(
-                'OK',
-                style: TextStyle(color: white, fontWeight: FontWeight.bold),
-              ),
-              style: ElevatedButton.styleFrom(backgroundColor: buttoncolor),
-            ),
-          ],
-        );
-      },
-    );
-  }
+  // void _showMessage(BuildContext context) {
+  //   showDialog(
+  //     context: context,
+  //     builder: (BuildContext context) {
+  //       return AlertDialog(
+  //         title: Text(
+  //           'Email sent!',
+  //           style: TextStyle(fontWeight: FontWeight.bold, color: mainFontColor),
+  //         ),
+  //         content: Text('Please check your mail.'),
+  //         actions: [
+  //           ElevatedButton(
+  //             onPressed: () {
+  //               Navigator.pushReplacement(context, MaterialPageRoute(
+  //                 builder: (context) {
+  //                   return loginPage();
+  //                 },
+  //               ));
+  //             },
+  //             child: Text(
+  //               'OK',
+  //               style: TextStyle(color: white, fontWeight: FontWeight.bold),
+  //             ),
+  //             style: ElevatedButton.styleFrom(backgroundColor: buttoncolor),
+  //           ),
+  //         ],
+  //       );
+  //     },
+  //   );
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -75,7 +76,7 @@ class _forgotPasswordState extends State<forgotPassword> {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 26),
                   child: Text(
-                    "Enter your email we will send some details on your mail.",
+                    "Enter your username we will send some details on your email.",
                     style: TextStyle(color: grey),
                   ),
                 ),
@@ -103,7 +104,7 @@ class _forgotPasswordState extends State<forgotPassword> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            "Email",
+                            "Username",
                             style: TextStyle(
                                 fontWeight: FontWeight.w500,
                                 fontSize: 13,
@@ -119,7 +120,7 @@ class _forgotPasswordState extends State<forgotPassword> {
                             decoration: InputDecoration(
                                 prefixIcon: Icon(Icons.email_outlined),
                                 prefixIconColor: black,
-                                hintText: "Email Id",
+                                hintText: "Enter your Username",
                                 border: InputBorder.none),
                           ),
                         ],
@@ -164,7 +165,12 @@ class _forgotPasswordState extends State<forgotPassword> {
                 ),
                 GestureDetector(
                   onTap: () {
-                    _showMessage(context);
+                    Fluttertoast.showToast(
+                      msg: 'Email Sent Successfully!',
+                      toastLength: Toast.LENGTH_SHORT,
+                      gravity: ToastGravity.BOTTOM,
+                      fontSize: 16.0);
+                    //_showMessage(context);
                   },
                   child: Container(
                     padding: EdgeInsets.all(16),

@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:GLSeUniVerse/colors.dart';
 import 'package:GLSeUniVerse/securityHomePage.dart';
 import 'package:GLSeUniVerse/users.dart';
@@ -29,12 +31,13 @@ class _userDetailsState extends State<userDetails> {
                 Container(
                   width: 150,
                   height: 150,
-                  decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      image: DecorationImage(
-                          image: NetworkImage(
-                              "https://images.unsplash.com/photo-1531256456869-ce942a665e80?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MTI4fHxwcm9maWxlfGVufDB8fDB8&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60"),
-                          fit: BoxFit.cover)),
+                  child: ImageFromBase64String(base64String: '$finalqr_profile'),
+                  // decoration: BoxDecoration(
+                  //     shape: BoxShape.circle,
+                  //     image: DecorationImage(
+                  //         image: NetworkImage(
+                  //             "https://images.unsplash.com/photo-1531256456869-ce942a665e80?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MTI4fHxwcm9maWxlfGVufDB8fDB8&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60"),
+                  //         fit: BoxFit.cover)),
                 ),
                 SizedBox(
                   height: 10,
@@ -164,3 +167,20 @@ class _userDetailsState extends State<userDetails> {
     );
   }
 }
+
+class ImageFromBase64String extends StatelessWidget {
+  final String base64String;
+  const ImageFromBase64String({Key? key, required this.base64String})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: Image.memory(
+        base64Decode(base64String),
+        fit: BoxFit.cover,
+      ),
+    );
+  }
+}
+

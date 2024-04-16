@@ -1,5 +1,7 @@
 // ignore_for_file: file_names
 
+import 'dart:convert';
+
 import 'package:GLSeUniVerse/alumni_sideNavBar.dart';
 import 'package:GLSeUniVerse/colors.dart';
 import 'package:GLSeUniVerse/postDiscussion.dart';
@@ -15,6 +17,7 @@ import 'package:GLSeUniVerse/barcodePage.dart';
 import 'package:GLSeUniVerse/main.dart';
 import 'package:GLSeUniVerse/qrPage.dart';
 import 'package:icon_badge/icon_badge.dart';
+import 'package:http/http.dart' as http;
 // import 'dart:ui' as ui;
 
 class alumni_HomePage extends StatefulWidget {
@@ -77,12 +80,13 @@ class _alumni_HomePageState extends State<alumni_HomePage> {
                           Container(
                             width: 150,
                             height: 150,
-                            decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                image: DecorationImage(
-                                    image: NetworkImage(
-                                        "https://images.unsplash.com/photo-1531256456869-ce942a665e80?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MTI4fHxwcm9maWxlfGVufDB8fDB8&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60"),
-                                    fit: BoxFit.cover)),
+                            child: ImageFromBase64String(base64String: '$finalprofile'),
+                            // decoration: BoxDecoration(
+                            //     shape: BoxShape.circle,
+                            //     image: DecorationImage(
+                            //         image: NetworkImage(
+                            //             "https://images.unsplash.com/photo-1531256456869-ce942a665e80?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MTI4fHxwcm9maWxlfGVufDB8fDB8&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60"),
+                            //         fit: BoxFit.cover)),
                           ),
                           SizedBox(
                             height: 10,
@@ -159,13 +163,41 @@ class _alumni_HomePageState extends State<alumni_HomePage> {
                           children: [
                             Expanded(
                               child: GestureDetector(
-                                onTap: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => requestDocs(),
-                                      ));
-                                  print("1st Clicked");
+                                onTap: () async {
+                                  print(finalrole);
+                                  var headers = {'Content-Type': 'application/json'};
+                                  var request = http.Request('GET', Uri.parse('https://poojan16.pythonanywhere.com/api/get_doccategories/'));
+                                  request.body = json.encode({
+                                    "role": "$finalrole"
+                                  });
+                                  request.headers.addAll(headers);
+                                  // http.StreamedResponse response = await request.send();
+                                  final response = await request.send();
+
+                                  if (response.statusCode == 200) {
+                                    print("Data Found");
+
+                                    //print(await response.stream.bytesToString());
+                                    final data = jsonDecode(await response.stream.bytesToString());
+                                    print(data);
+
+                                    docs = data['categories'];//['doc_name'];
+                                    items = docs.map((item) => item['doc_name'].toString()).toList();
+                                    
+
+                                    Navigator.push(context, MaterialPageRoute(
+                                      builder: (context) => requestDocs(),
+                                    ));
+                                  }
+                                  else{
+                                    print(response.reasonPhrase);
+                                  }
+                                  // Navigator.push(
+                                  //     context,
+                                  //     MaterialPageRoute(
+                                  //       builder: (context) => requestDocs(),
+                                  //     ));
+                                  // print("1st Clicked");
                                 },
                                 child: Container(
                                   height: 100,
@@ -426,3 +458,20 @@ class _alumni_HomePageState extends State<alumni_HomePage> {
         )));
   }
 }
+
+class ImageFromBase64String extends StatelessWidget {
+  final String base64String;
+  const ImageFromBase64String({Key? key, required this.base64String})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: Image.memory(
+        base64Decode(base64String),
+        fit: BoxFit.cover,
+      ),
+    );
+  }
+}
+

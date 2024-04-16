@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:GLSeUniVerse/SplashScreen.dart';
 import 'package:GLSeUniVerse/barcodePage.dart';
 import 'package:GLSeUniVerse/colors.dart';
@@ -25,8 +27,9 @@ class sideNavigation extends StatelessWidget {
           accountName: Text(finalName),
           accountEmail: Text(finalEmail),
           currentAccountPicture: CircleAvatar(
-            backgroundImage: NetworkImage(
-                "https://images.unsplash.com/photo-1531256456869-ce942a665e80?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MTI4fHxwcm9maWxlfGVufDB8fDB8&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60"),
+            // backgroundImage: NetworkImage(
+            //     "https://images.unsplash.com/photo-1531256456869-ce942a665e80?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MTI4fHxwcm9maWxlfGVufDB8fDB8&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60"),
+            child: ImageFromBase64String(base64String: '$finalprofile'),            
             radius: 30,
           ),
           decoration: BoxDecoration(
@@ -193,3 +196,20 @@ class sideNavigation extends StatelessWidget {
     );
   }
 }
+
+class ImageFromBase64String extends StatelessWidget {
+  final String base64String;
+  const ImageFromBase64String({Key? key, required this.base64String})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: Image.memory(
+        base64Decode(base64String),
+        fit: BoxFit.cover,
+      ),
+    );
+  }
+}
+

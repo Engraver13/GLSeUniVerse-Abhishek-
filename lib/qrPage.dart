@@ -7,6 +7,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'dart:convert';
+import 'package:flutter_windowmanager/flutter_windowmanager.dart';
 
 class qrPage extends StatefulWidget {
   const qrPage({super.key});
@@ -18,6 +19,19 @@ class qrPage extends StatefulWidget {
 class _qrPageState extends State<qrPage> {
   int myIndex = 0;
   //String qr = users.qr_code;
+  @override
+  void initState(){
+    super.initState();
+    FlutterWindowManager.addFlags(FlutterWindowManager.FLAG_SECURE);
+  }
+  @override
+  void dispose(){
+    FlutterWindowManager.clearFlags(
+      FlutterWindowManager.FLAG_SECURE
+    );
+
+    super.dispose();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -57,10 +71,10 @@ class _qrPageState extends State<qrPage> {
                 CircleAvatar(
                   radius: 50,
                   //backgroundImage: AssetImage('images/profile.png'),
-                  backgroundImage: NetworkImage(
-                      "https://images.unsplash.com/photo-1531256456869-ce942a665e80?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MTI4fHxwcm9maWxlfGVufDB8fDB8&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60"),
+                  //backgroundImage: NetworkImage(
+                     // "https://images.unsplash.com/photo-1531256456869-ce942a665e80?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MTI4fHxwcm9maWxlfGVufDB8fDB8&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60"),
 
-                  //child: ImageFromBase64String(base64String: users.qr_code),
+                  child: ImageFromBase64String(base64String: '$finalprofile'),
                 ),
                 //ImageFromBase64String(base64String: users.qr_code),
                 SizedBox(
@@ -82,7 +96,7 @@ class _qrPageState extends State<qrPage> {
                 // ),
 
                 Container(
-                  //child:ImageFromBase64String(base64String: users.qr_code),
+                  //child:ImageFromBase64String(base64String: ''),
                   child: ImageFromBase64String(base64String: '$finalqr_code'),
                   height: 250,
                 ),

@@ -36,6 +36,7 @@ class _loadScreenState extends State<loadScreen> {
       Timer(const Duration(seconds: 4), () {
         print("In Load: " + finalEmail);
         print("In Load: " + finalrole);
+        print("In Load: " + finalprofile);
         if(finalrole == 'Student'){
           Navigator.pushReplacement(
             context,
@@ -105,6 +106,7 @@ class _loadScreenState extends State<loadScreen> {
         finalcourse_name = await sharedPreferences.getString('course_name') ?? "";
         finalbatch_start_year = await sharedPreferences.getString('batch_start_year') ?? "";
         finalrole = await sharedPreferences.getString('role') ?? "";
+        finalprofile = await sharedPreferences.getString('profile') ?? "";
       
       }
 
@@ -128,6 +130,7 @@ class _loadScreenState extends State<loadScreen> {
         //finalcourse_name = "Not Applicable";
         finalbatch_start_year = "Not Applicable";
         finalrole = await sharedPreferences.getString('role') ?? "";
+        finalprofile = await sharedPreferences.getString('profile') ?? "";
       
 
       }
@@ -136,6 +139,7 @@ class _loadScreenState extends State<loadScreen> {
         final SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
         finalEmail = await sharedPreferences.getString('email') ?? "";
         finalrole = await sharedPreferences.getString('role') ?? "";
+        finalprofile = await sharedPreferences.getString('profile') ?? "";
       }
     setState(() {
       //   finalEmail = obtainEmail.toString();

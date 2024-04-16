@@ -1,5 +1,6 @@
 import 'package:GLSeUniVerse/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
@@ -48,7 +49,8 @@ class _visitorInViewState extends State<visitorInView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Visitor List'),
+        title: Text('Visitor List', style: TextStyle(color: white),),
+        backgroundColor: mainFontColor,
       ),
       body: ListView.builder(
         itemCount: visitors.length,
@@ -63,12 +65,44 @@ class _visitorInViewState extends State<visitorInView> {
                 child: Icon(Icons.directions_run_rounded, size: 40, color: buttoncolor,),
                 
                 onDoubleTap
-                : () {
-                  visitors.removeAt(index);
-                
-                  setState(() {
-                    
+                : () async {
+                  var pass_no = visitors[index]['pass_no'];
+                  var headers = {'Content-Type': 'application/json'};
+                  var request = http.Request('POST',
+                    Uri.parse('https://poojan16.pythonanywhere.com/statusChange'));
+                  request.body = json.encode({
+                    "pass_no": "$pass_no",
                   });
+                  request.headers.addAll(headers);
+                  // http.StreamedResponse response = await request.send();
+                  final response = await request.send();
+
+                  if (response.statusCode == 200) {
+                    print("User Found");
+
+                    //print(await response.stream.bytesToString());
+                    final data = jsonDecode(await response.stream.bytesToString());
+                    print(data);
+
+                    Fluttertoast.showToast(
+                    msg: data['Success'],
+                    toastLength: Toast.LENGTH_SHORT,
+                    gravity: ToastGravity.BOTTOM,
+                    fontSize: 16.0);
+      
+                    
+                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
+                      return visitorInView();
+                    },)).then((value){setState(() {
+                      
+                    });});
+                    
+                  }
+                  //visitors.removeAt(index);
+                
+                  // setState(() {
+                    
+                  // });
                 },
                 
               ),
