@@ -120,7 +120,7 @@ class _securityPageState extends State<securityPage> {
                                   var request = http.Request(
                                       'GET',
                                       Uri.parse(
-                                          'https://poojan16.pythonanywhere.com/api/searchUser/'));
+                                          'https://poojan17.pythonanywhere.com/api/searchUser/'));
                                   request.body = json.encode({
                                     "username": "$username",
                                     });
@@ -292,7 +292,7 @@ class _securityPageState extends State<securityPage> {
                                   var request = http.Request(
                                       'POST',
                                       Uri.parse(
-                                          'https://poojan16.pythonanywhere.com/api/verifyUser/'));
+                                          'https://poojan17.pythonanywhere.com/api/verifyUser/'));
                                   request.body = json.encode({
                                     "username": "$username",
                                     "key": "$key",

@@ -22,7 +22,7 @@ class _viewDiscussionState extends State<viewDiscussion> {
   }
 
   Future<void> fetchVisitorData() async {
-    final response = await http.get(Uri.parse('https://poojan16.pythonanywhere.com/api/getPost/'));
+    final response = await http.get(Uri.parse('https://poojan17.pythonanywhere.com/api/getPost/'));
     if (response.statusCode == 201) {
       final responseData = json.decode(response.body);
       setState(() {

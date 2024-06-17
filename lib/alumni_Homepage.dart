@@ -166,7 +166,7 @@ class _alumni_HomePageState extends State<alumni_HomePage> {
                                 onTap: () async {
                                   print(finalrole);
                                   var headers = {'Content-Type': 'application/json'};
-                                  var request = http.Request('GET', Uri.parse('https://poojan16.pythonanywhere.com/api/get_doccategories/'));
+                                  var request = http.Request('GET', Uri.parse('https://poojan17.pythonanywhere.com/api/get_doccategories/'));
                                   request.body = json.encode({
                                     "role": "$finalrole"
                                   });

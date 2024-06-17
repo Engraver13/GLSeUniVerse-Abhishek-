@@ -32,7 +32,7 @@ class _visitorInViewState extends State<visitorInView> {
   }
 
   Future<void> fetchVisitorData() async {
-    final response = await http.get(Uri.parse('https://poojan16.pythonanywhere.com/visitorstatus'));
+    final response = await http.get(Uri.parse('https://poojan17.pythonanywhere.com/visitorstatus'));
     if (response.statusCode == 200) {
       final List<dynamic> responseData = json.decode(response.body);
       setState(() {
@@ -69,7 +69,7 @@ class _visitorInViewState extends State<visitorInView> {
                   var pass_no = visitors[index]['pass_no'];
                   var headers = {'Content-Type': 'application/json'};
                   var request = http.Request('POST',
-                    Uri.parse('https://poojan16.pythonanywhere.com/statusChange'));
+                    Uri.parse('https://poojan17.pythonanywhere.com/statusChange'));
                   request.body = json.encode({
                     "pass_no": "$pass_no",
                   });

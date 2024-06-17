@@ -37,7 +37,7 @@ class _requestDocsState extends State<requestDocs> {
 
 Future<void> uploadPdf(File _selectedFile) async {
 
-  var request = http.MultipartRequest('POST', Uri.parse('https://poojan16.pythonanywhere.com/api/create_docreq/'));
+  var request = http.MultipartRequest('POST', Uri.parse('https://poojan17.pythonanywhere.com/api/create_docreq/'));
   request.headers['Content-Type'] = 'multipart/form-data';
   //request.files.add(await http.MultipartFile.fromPath('file', _selectedFile.path));
   request.fields['full_name'] = "Abhishek Engraver";

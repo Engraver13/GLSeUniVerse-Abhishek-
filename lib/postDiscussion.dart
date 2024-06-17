@@ -101,7 +101,7 @@ class _postDiscussionState extends State<postDiscussion> {
                       var request = http.Request(
                           'POST',
                           Uri.parse(
-                              'https://poojan16.pythonanywhere.com/api/createPost/'));
+                              'https://poojan17.pythonanywhere.com/api/createPost/'));
                       request.body = json.encode({
                         "username": "$finalEnrollment",
                         "post_title": "$post_title",

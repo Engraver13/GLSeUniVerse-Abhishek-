@@ -2,6 +2,7 @@
 
 import 'dart:convert';
 
+import 'package:GLSeUniVerse/RequestDocs1.dart';
 import 'package:GLSeUniVerse/colors.dart';
 import 'package:GLSeUniVerse/users.dart';
 import 'package:GLSeUniVerse/requestDocs.dart';
@@ -168,7 +169,7 @@ class _HomePageState extends State<HomePage> {
                                 onTap: () async {
                                   print(finalrole);
                                   var headers = {'Content-Type': 'application/json'};
-                                  var request = http.Request('GET', Uri.parse('https://poojan16.pythonanywhere.com/api/get_doccategories/'));
+                                  var request = http.Request('GET', Uri.parse('https://poojan17.pythonanywhere.com/api/get_doccategories/'));
                                   request.body = json.encode({
                                     "role": "$finalrole"
                                   });
